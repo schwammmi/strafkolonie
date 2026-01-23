@@ -1,0 +1,355 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Cog, Eye, Pen, ChevronRight, X, Zap, Scale, Brain } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+
+export default function Apparat() {
+  const [selectedPart, setSelectedPart] = useState(null);
+  const [hoveredPart, setHoveredPart] = useState(null);
+
+  const apparatParts = [
+    {
+      id: 'egge',
+      name: 'Die Egge',
+      icon: Pen,
+      position: 'top-1/4 left-1/2 -translate-x-1/2',
+      description: 'Das Schreibinstrument des Apparats',
+      symbolism: 'Die Egge ritzt das Urteil in den Körper des Verurteilten. Sie steht für die physische Manifestation der Schuldzuweisung – das Urteil wird buchstäblich in den Menschen eingeschrieben.',
+      interpretation: 'Die Körperlichkeit der Strafe zeigt, wie autoritäre Systeme ihre Macht direkt am Körper der Unterworfenen ausüben. Der Mensch wird zum beschreibbaren Objekt degradiert.',
+      quote: '„Unsere Maschine ist eine Schreibmaschine..."',
+      color: 'red'
+    },
+    {
+      id: 'bett',
+      name: 'Das Bett',
+      icon: Eye,
+      position: 'top-1/2 left-1/4',
+      description: 'Die Lagerstätte des Verurteilten',
+      symbolism: 'Das Bett hält den Verurteilten bewegungslos fest. Es symbolisiert die absolute Unterwerfung unter das System – der Mensch hat keine Möglichkeit zu fliehen oder sich zu wehren.',
+      interpretation: 'Die Fixierung zeigt die Ohnmacht des Individuums gegenüber dem übermächtigen System. Jeder Widerstand ist von vornherein ausgeschlossen.',
+      quote: '„Der Verurteilte wird hier auf das Bett gelegt..."',
+      color: 'zinc'
+    },
+    {
+      id: 'zeichner',
+      name: 'Der Zeichner',
+      icon: Cog,
+      position: 'top-1/2 right-1/4',
+      description: 'Die Steuerungseinheit',
+      symbolism: 'Der Zeichner enthält die Pläne und steuert die Egge. Er repräsentiert die bürokratische Logik, die hinter dem Strafsystem steht – unpersönlich, mechanisch, unerbittlich.',
+      interpretation: 'Die Maschine folgt einem vorgegebenen Plan, ohne Rücksicht auf den individuellen Fall. Dies kritisiert die Entmenschlichung durch bürokratische Prozesse.',
+      quote: '„Der Zeichner ist so eingerichtet, dass das Bett und die Egge sich selbst in Bewegung setzen..."',
+      color: 'amber'
+    },
+  ];
+
+  const symbolLayers = [
+    {
+      title: 'Mechanisierte Justiz',
+      icon: Scale,
+      description: 'Der Apparat steht für ein Rechtssystem, das ohne menschliches Urteilsvermögen funktioniert. Urteil, Strafe und angebliche "Erkenntnis" verschmelzen zu einem mechanischen Prozess.',
+      color: 'from-red-900/30'
+    },
+    {
+      title: 'Entmenschlichung',
+      icon: Zap,
+      description: 'Der Verurteilte wird zum Material, an dem sich das System vollzieht. Er hat keine Stimme, keine Verteidigung, kein Wissen über seine Schuld – er existiert nur als Objekt.',
+      color: 'from-amber-900/30'
+    },
+    {
+      title: 'Selbstlegitimation',
+      icon: Brain,
+      description: 'Das System rechtfertigt sich selbst durch seinen bloßen Vollzug. Die Strafe soll "Erkenntnis" bringen, doch diese Erkenntnis dient nur der nachträglichen Legitimation.',
+      color: 'from-zinc-700/30'
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/90 backdrop-blur-sm border-b border-zinc-900">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link to={createPageUrl('Home')} className="flex items-center gap-3 text-zinc-400 hover:text-zinc-200 transition-colors">
+            <ArrowLeft className="w-5 h-5" />
+            <span>Zurück</span>
+          </Link>
+          <h1 className="text-lg font-light">Der Apparat</h1>
+          <div className="w-20" />
+        </div>
+      </header>
+
+      <main className="pt-24 pb-16">
+        {/* Hero */}
+        <section className="px-6 py-16">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Cog className="w-20 h-20 text-amber-600/50 mx-auto mb-8" />
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-light mb-6"
+            >
+              Der <span className="text-amber-500">Apparat</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-xl text-zinc-400 max-w-2xl mx-auto"
+            >
+              Symbol eines mechanisierten, entmenschlichten Rechtssystems, 
+              in dem Urteil, Strafe und Erkenntnis miteinander verschmelzen
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Interactive Apparatus */}
+        <section className="px-6 py-16">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl font-light text-center mb-12">
+              Die Komponenten des Apparats
+            </h2>
+            
+            <div className="relative aspect-[16/10] max-w-4xl mx-auto bg-zinc-900/30 border border-zinc-800 rounded-lg overflow-hidden">
+              {/* Animated background gears */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                >
+                  <Cog className="w-96 h-96 text-amber-700" strokeWidth={0.3} />
+                </motion.div>
+              </div>
+
+              {/* Apparatus parts */}
+              {apparatParts.map((part) => (
+                <motion.button
+                  key={part.id}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5 }}
+                  onMouseEnter={() => setHoveredPart(part.id)}
+                  onMouseLeave={() => setHoveredPart(null)}
+                  onClick={() => setSelectedPart(part)}
+                  className={`absolute ${part.position} z-10`}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`p-6 rounded-full border-2 transition-all cursor-pointer
+                      ${hoveredPart === part.id || selectedPart?.id === part.id
+                        ? `bg-${part.color}-600/30 border-${part.color}-500`
+                        : 'bg-zinc-800/50 border-zinc-700 hover:border-zinc-600'
+                      }`}
+                  >
+                    <part.icon className={`w-8 h-8 ${
+                      hoveredPart === part.id || selectedPart?.id === part.id
+                        ? `text-${part.color}-400`
+                        : 'text-zinc-400'
+                    }`} />
+                  </motion.div>
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ 
+                      opacity: hoveredPart === part.id ? 1 : 0.7,
+                      y: hoveredPart === part.id ? 0 : 5
+                    }}
+                    className="mt-3 text-sm text-center whitespace-nowrap"
+                  >
+                    {part.name}
+                  </motion.p>
+                </motion.button>
+              ))}
+
+              {/* Connection lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                <motion.line
+                  x1="50%" y1="25%" x2="25%" y2="50%"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  className="text-zinc-800"
+                  strokeDasharray="4 4"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ delay: 1, duration: 1 }}
+                />
+                <motion.line
+                  x1="50%" y1="25%" x2="75%" y2="50%"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  className="text-zinc-800"
+                  strokeDasharray="4 4"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ delay: 1.2, duration: 1 }}
+                />
+                <motion.line
+                  x1="25%" y1="50%" x2="75%" y2="50%"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  className="text-zinc-800"
+                  strokeDasharray="4 4"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ delay: 1.4, duration: 1 }}
+                />
+              </svg>
+            </div>
+
+            {/* Part cards for mobile */}
+            <div className="mt-12 grid md:grid-cols-3 gap-4">
+              {apparatParts.map((part) => (
+                <motion.button
+                  key={`card-${part.id}`}
+                  whileHover={{ scale: 1.02 }}
+                  onClick={() => setSelectedPart(part)}
+                  className={`p-6 text-left border transition-all
+                    ${selectedPart?.id === part.id
+                      ? 'bg-zinc-800 border-zinc-600'
+                      : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-700'
+                    }`}
+                >
+                  <part.icon className="w-6 h-6 text-amber-600/70 mb-3" />
+                  <h3 className="font-medium mb-1">{part.name}</h3>
+                  <p className="text-sm text-zinc-500">{part.description}</p>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Detail Modal */}
+        <AnimatePresence>
+          {selectedPart && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-zinc-950/90"
+              onClick={() => setSelectedPart(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-2xl bg-zinc-900 border border-zinc-800 max-h-[80vh] overflow-y-auto"
+              >
+                <div className="p-8">
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className={`p-4 rounded-full bg-${selectedPart.color}-600/20`}>
+                        <selectedPart.icon className={`w-8 h-8 text-${selectedPart.color}-500`} />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-light">{selectedPart.name}</h2>
+                        <p className="text-zinc-500">{selectedPart.description}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setSelectedPart(null)}
+                      className="p-2 text-zinc-500 hover:text-zinc-300 transition-colors"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-amber-500/80 text-sm uppercase tracking-wider mb-2">Symbolik</h3>
+                      <p className="text-zinc-300 leading-relaxed">{selectedPart.symbolism}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-amber-500/80 text-sm uppercase tracking-wider mb-2">Interpretation</h3>
+                      <p className="text-zinc-300 leading-relaxed">{selectedPart.interpretation}</p>
+                    </div>
+
+                    <blockquote className="border-l-2 border-amber-600/50 pl-4 py-2 bg-zinc-800/30">
+                      <p className="text-zinc-400 italic">{selectedPart.quote}</p>
+                    </blockquote>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Symbol Layers */}
+        <section className="px-6 py-16 border-t border-zinc-900">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-light text-center mb-12">
+              Symbolische Bedeutungsebenen
+            </h2>
+
+            <div className="space-y-6">
+              {symbolLayers.map((layer, index) => (
+                <motion.div
+                  key={layer.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`p-8 bg-gradient-to-r ${layer.color} to-transparent border border-zinc-800`}
+                >
+                  <div className="flex items-start gap-6">
+                    <layer.icon className="w-8 h-8 text-amber-600/70 flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="text-xl font-light mb-3">{layer.title}</h3>
+                      <p className="text-zinc-400 leading-relaxed">{layer.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Key Insight */}
+        <section className="px-6 py-16">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="p-8 md:p-12 bg-red-950/20 border border-red-900/30 text-center"
+            >
+              <h3 className="text-2xl font-light mb-6">Zentrale Erkenntnis</h3>
+              <p className="text-xl text-zinc-300 leading-relaxed">
+                Der Apparat ist mehr als eine Hinrichtungsmaschine – er ist das 
+                <span className="text-red-400"> perfekte Symbol für jedes System</span>, 
+                das den Menschen zum Objekt degradiert und Schuld als unhinterfragbare 
+                Gegebenheit voraussetzt.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Navigation */}
+        <section className="px-6 py-12 border-t border-zinc-900">
+          <div className="max-w-4xl mx-auto flex justify-between items-center">
+            <Link 
+              to={createPageUrl('Home')}
+              className="text-zinc-500 hover:text-zinc-300 transition-colors"
+            >
+              ← Startseite
+            </Link>
+            <Link 
+              to={createPageUrl('Figuren')}
+              className="flex items-center gap-2 text-amber-500 hover:text-amber-400 transition-colors"
+            >
+              Weiter: Die Hauptfiguren
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
