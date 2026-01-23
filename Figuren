@@ -1,0 +1,338 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, User, Shield, Eye, HelpCircle, ChevronRight, ChevronLeft, Quote } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+
+export default function Figuren() {
+  const [activeFigure, setActiveFigure] = useState(0);
+
+  const figures = [
+    {
+      id: 'offizier',
+      name: 'Der Offizier',
+      role: 'Der fanatische Systemtreue',
+      icon: Shield,
+      color: 'red',
+      bgGradient: 'from-red-950/40 to-zinc-950',
+      description: 'Verkörpert blinde Gefolgschaft und fanatische Systemtreue',
+      characteristics: [
+        'Glaubt unerschütterlich an die Gerechtigkeit des Apparats',
+        'Verteidigt ein längst veraltetes und defektes System',
+        'Identifiziert sich vollständig mit seiner Rolle als Vollstrecker',
+        'Opfert sich letztlich selbst der Maschine'
+      ],
+      symbolism: 'Der Offizier steht für alle, die sich einem System so sehr verschreiben, dass sie dessen Unmenschlichkeit nicht mehr erkennen können. Seine Selbstunterwerfung unter die Maschine zeigt, wie autoritäre Systeme ihre eigenen Vollstrecker letztlich vernichten.',
+      interpretation: 'Sein Tod ist das Sinnbild für die Selbstzerstörung autoritärer Regime, die an ihrer eigenen Unbeweglichkeit und Ideologie zerbrechen. Er kann das System nicht reformieren – er kann nur mit ihm untergehen.',
+      quote: '„Ich bin der einzige, der noch für den alten Kommandanten eintritt."',
+      keyMoment: 'Die Selbstunterwerfung unter den Apparat'
+    },
+    {
+      id: 'reisender',
+      name: 'Der Reisende',
+      role: 'Der passive Beobachter',
+      icon: Eye,
+      color: 'amber',
+      bgGradient: 'from-amber-950/40 to-zinc-950',
+      description: 'Repräsentiert den kritischen, aber handlungsunfähigen Intellektuellen',
+      characteristics: [
+        'Beobachtet das Geschehen mit kritischer Distanz',
+        'Stellt Fragen und äußert Zweifel',
+        'Greift trotz erkannten Unrechts nicht aktiv ein',
+        'Flieht am Ende vor der Verantwortung'
+      ],
+      symbolism: 'Der Reisende kann als Alter Ego Kafkas gelesen werden – der Versuch, die undurchschaubaren "Regeln" der Welt zu verstehen, ohne sie ändern zu können. Er steht für den modernen Menschen, der Unrecht erkennt, aber aus verschiedenen Gründen nicht eingreift.',
+      interpretation: 'Kafka kritisiert durch den Reisenden die passiven Mitläufer: Menschen, die aus Bequemlichkeit, Angst oder vermeintlicher Neutralität Unrecht geschehen lassen. Seine Flucht am Ende der Erzählung ist keine Lösung, sondern Ausdruck der eigenen Hilflosigkeit.',
+      quote: '„Es handelte sich um ein Verfahren, das der Reisende nicht billigte."',
+      keyMoment: 'Die Entscheidung, nicht einzugreifen'
+    },
+    {
+      id: 'verurteilter',
+      name: 'Der Verurteilte',
+      role: 'Das entmenschlichte Opfer',
+      icon: User,
+      color: 'zinc',
+      bgGradient: 'from-zinc-800/40 to-zinc-950',
+      description: 'Symbolisiert die vollständige Objektwerdung des Menschen',
+      characteristics: [
+        'Kennt weder Anklage noch Urteil',
+        'Hat keine Möglichkeit zur Verteidigung',
+        'Wird auf ein willenloses Objekt reduziert',
+        'Existiert nur als Material für das System'
+      ],
+      symbolism: 'Der Verurteilte repräsentiert die absolute Missachtung der Menschenwürde. Er ist der stumme Zeuge eines Systems, das keine Individualität anerkennt. Seine Unwissenheit über die eigene Schuld zeigt die Willkür autoritärer Macht.',
+      interpretation: 'In der Figur des Verurteilten verdichtet sich Kafkas Kritik an der Entmenschlichung: Der Mensch wird zum beschreibbaren Körper, an dem sich das System vollzieht. Seine Stummheit ist zugleich sein Schicksal und seine Anklage.',
+      quote: '„Kennt er sein Urteil?" – „Nein."',
+      keyMoment: 'Die unwissende Hinnahme des Urteils'
+    }
+  ];
+
+  const currentFigure = figures[activeFigure];
+
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/90 backdrop-blur-sm border-b border-zinc-900">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link to={createPageUrl('Home')} className="flex items-center gap-3 text-zinc-400 hover:text-zinc-200 transition-colors">
+            <ArrowLeft className="w-5 h-5" />
+            <span>Zurück</span>
+          </Link>
+          <h1 className="text-lg font-light">Die Hauptfiguren</h1>
+          <div className="w-20" />
+        </div>
+      </header>
+
+      <main className="pt-24 pb-16">
+        {/* Hero */}
+        <section className="px-6 py-16">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-light mb-6"
+            >
+              Die <span className="text-amber-500">Hauptfiguren</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-xl text-zinc-400 max-w-2xl mx-auto"
+            >
+              Drei Perspektiven auf ein unmenschliches System: 
+              Der Vollstrecker, der Beobachter, das Opfer
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Figure Selector */}
+        <section className="px-6 pb-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex justify-center gap-4 flex-wrap">
+              {figures.map((figure, index) => (
+                <motion.button
+                  key={figure.id}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveFigure(index)}
+                  className={`flex items-center gap-3 px-6 py-4 border transition-all
+                    ${activeFigure === index
+                      ? `bg-${figure.color}-900/30 border-${figure.color}-700`
+                      : 'bg-zinc-900/30 border-zinc-800 hover:border-zinc-700'
+                    }`}
+                >
+                  <figure.icon className={`w-5 h-5 ${
+                    activeFigure === index ? `text-${figure.color}-500` : 'text-zinc-500'
+                  }`} />
+                  <span className={activeFigure === index ? 'text-zinc-100' : 'text-zinc-400'}>
+                    {figure.name}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Figure Detail */}
+        <section className="px-6 py-8">
+          <div className="max-w-5xl mx-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentFigure.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className={`bg-gradient-to-br ${currentFigure.bgGradient} border border-zinc-800 overflow-hidden`}
+              >
+                {/* Header */}
+                <div className="p-8 md:p-12 border-b border-zinc-800/50">
+                  <div className="flex flex-col md:flex-row md:items-center gap-6">
+                    <div className={`p-6 rounded-full bg-${currentFigure.color}-900/30 border border-${currentFigure.color}-800/50 self-start`}>
+                      <currentFigure.icon className={`w-12 h-12 text-${currentFigure.color}-500`} />
+                    </div>
+                    <div>
+                      <h2 className="text-3xl md:text-4xl font-light mb-2">{currentFigure.name}</h2>
+                      <p className={`text-${currentFigure.color}-400/80 text-lg`}>{currentFigure.role}</p>
+                      <p className="text-zinc-500 mt-2">{currentFigure.description}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Grid */}
+                <div className="grid md:grid-cols-2 gap-0">
+                  {/* Characteristics */}
+                  <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-zinc-800/50">
+                    <h3 className="text-amber-500/80 text-sm uppercase tracking-wider mb-6">
+                      Charakteristik
+                    </h3>
+                    <ul className="space-y-4">
+                      {currentFigure.characteristics.map((char, index) => (
+                        <motion.li
+                          key={index}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="flex items-start gap-3"
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full bg-${currentFigure.color}-500 mt-2 flex-shrink-0`} />
+                          <span className="text-zinc-300">{char}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Key Moment */}
+                  <div className="p-8 md:p-12">
+                    <h3 className="text-amber-500/80 text-sm uppercase tracking-wider mb-6">
+                      Schlüsselmoment
+                    </h3>
+                    <p className="text-2xl font-light text-zinc-200 mb-6">
+                      {currentFigure.keyMoment}
+                    </p>
+                    <blockquote className="border-l-2 border-amber-600/50 pl-4 py-2 bg-zinc-900/30">
+                      <Quote className="w-4 h-4 text-amber-600/50 mb-2" />
+                      <p className="text-zinc-400 italic">{currentFigure.quote}</p>
+                    </blockquote>
+                  </div>
+                </div>
+
+                {/* Symbolism & Interpretation */}
+                <div className="border-t border-zinc-800/50">
+                  <div className="p-8 md:p-12 space-y-8">
+                    <div>
+                      <h3 className="text-amber-500/80 text-sm uppercase tracking-wider mb-4">
+                        Symbolische Bedeutung
+                      </h3>
+                      <p className="text-zinc-300 leading-relaxed text-lg">
+                        {currentFigure.symbolism}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-amber-500/80 text-sm uppercase tracking-wider mb-4">
+                        Interpretation
+                      </h3>
+                      <p className="text-zinc-300 leading-relaxed text-lg">
+                        {currentFigure.interpretation}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Figure Navigation */}
+            <div className="flex justify-between items-center mt-8">
+              <button
+                onClick={() => setActiveFigure((prev) => (prev === 0 ? figures.length - 1 : prev - 1))}
+                className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Vorherige Figur
+              </button>
+              <div className="flex gap-2">
+                {figures.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveFigure(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      activeFigure === index ? 'bg-amber-500 w-6' : 'bg-zinc-700'
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() => setActiveFigure((prev) => (prev === figures.length - 1 ? 0 : prev + 1))}
+                className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                Nächste Figur
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Constellation */}
+        <section className="px-6 py-16 border-t border-zinc-900 mt-16">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-light text-center mb-12">
+              Die Figurenkonstellation
+            </h2>
+            
+            <div className="relative">
+              {/* Triangle visualization */}
+              <div className="flex justify-center mb-12">
+                <div className="relative w-80 h-72">
+                  {/* Lines */}
+                  <svg className="absolute inset-0 w-full h-full">
+                    <line x1="50%" y1="10%" x2="10%" y2="90%" stroke="#3f3f46" strokeWidth="1" strokeDasharray="4 4" />
+                    <line x1="50%" y1="10%" x2="90%" y2="90%" stroke="#3f3f46" strokeWidth="1" strokeDasharray="4 4" />
+                    <line x1="10%" y1="90%" x2="90%" y2="90%" stroke="#3f3f46" strokeWidth="1" strokeDasharray="4 4" />
+                  </svg>
+                  
+                  {/* Nodes */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                    <div className="w-16 h-16 rounded-full bg-red-900/30 border border-red-800/50 flex items-center justify-center">
+                      <Shield className="w-8 h-8 text-red-500" />
+                    </div>
+                    <p className="text-center text-sm mt-2 text-zinc-400">Offizier</p>
+                  </div>
+                  
+                  <div className="absolute bottom-0 left-0">
+                    <div className="w-16 h-16 rounded-full bg-amber-900/30 border border-amber-800/50 flex items-center justify-center">
+                      <Eye className="w-8 h-8 text-amber-500" />
+                    </div>
+                    <p className="text-center text-sm mt-2 text-zinc-400">Reisender</p>
+                  </div>
+                  
+                  <div className="absolute bottom-0 right-0">
+                    <div className="w-16 h-16 rounded-full bg-zinc-800/50 border border-zinc-700 flex items-center justify-center">
+                      <User className="w-8 h-8 text-zinc-400" />
+                    </div>
+                    <p className="text-center text-sm mt-2 text-zinc-400">Verurteilter</p>
+                  </div>
+
+                  {/* Center - the apparatus */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/4">
+                    <HelpCircle className="w-8 h-8 text-zinc-600" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center max-w-2xl mx-auto">
+                <p className="text-zinc-400 leading-relaxed">
+                  Alle drei Figuren stehen in Beziehung zum Apparat, aber jede auf unterschiedliche Weise: 
+                  Der Offizier als <span className="text-red-400">blinder Vollstrecker</span>, 
+                  der Reisende als <span className="text-amber-400">passiver Zeuge</span>, 
+                  der Verurteilte als <span className="text-zinc-300">stummes Opfer</span>. 
+                  Zusammen bilden sie ein Panorama menschlicher Verhaltensweisen gegenüber autoritärer Macht.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Navigation */}
+        <section className="px-6 py-12 border-t border-zinc-900">
+          <div className="max-w-4xl mx-auto flex justify-between items-center">
+            <Link 
+              to={createPageUrl('Apparat')}
+              className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Der Apparat
+            </Link>
+            <Link 
+              to={createPageUrl('Themen')}
+              className="flex items-center gap-2 text-amber-500 hover:text-amber-400 transition-colors"
+            >
+              Weiter: Themen
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
